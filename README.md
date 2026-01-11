@@ -1,17 +1,19 @@
 # Claude Code Response Copier
 
-A Claude Code hook that adds a `/copy-response` command to quickly copy Claude's responses to your clipboard.
+A Claude Code hook that adds a `-copy` command to quickly copy Claude's responses to your clipboard. 
+
+The command name `-copy` is now configurabled. Just set your `COMMAND_NAME` variable. Avoid prefixing with `\` as this may result to `unknown slash command` error in Claude code.
 
 ![Demo](img/demo.gif)
 
 ## Features
 
-- 📋 **Quick Copy**: `/copy-response` copies the latest response
-- 🔢 **Numbered Access**: `/copy-response 3` copies a specific response
-- 📝 **List Responses**: `/copy-response list` shows available responses with previews
-- 🔍 **Search Responses**: `/copy-response find "keyword"` finds responses containing text
-- ⏰ **Timestamps**: Shows when each response was created
-- 🖥️ **Cross-Platform**: Works on macOS, Linux, and Windows/WSL
+- **Quick Copy**: `-copy` copies the latest response
+- **Numbered Access**: `-copy 3` copies a specific response
+- **List Responses**: `-copy list` shows available responses with previews
+- **Search Responses**: `-copy -f keyword` finds responses containing text
+- **Timestamps**: Shows when each response was created
+- **Cross-Platform**: Works on macOS, Linux, and Windows/WSL
 
 ## Installation
 
@@ -53,53 +55,53 @@ A Claude Code hook that adds a `/copy-response` command to quickly copy Claude's
 
 | Command | Description |
 |---------|-------------|
-| `/copy-response` | Copy the latest Claude response |
-| `/copy-response 2` | Copy response #2 |
-| `/copy-response list` | List last 10 responses with previews |
-| `/copy-response list 5` | List last 5 responses |
-| `/copy-response find "error"` | Find responses containing "error" |
+| `-copy` | Copy the latest Claude response |
+| `-copy 2` | Copy response #2 |
+| `-copy list` | List last 10 responses with previews |
+| `-copy list 5` | List last 5 responses |
+| `-copy -f error` | Find responses containing "error" |
 
 ### Examples
 
 **Copy latest response:**
 
 ```
-/copy-response
+-copy
 ```
 
-> Latest Claude response copied to clipboard!
+> Latest response copied!
 
 **List recent responses:**
 
 ```
-/copy-response list
+-copy list
 ```
 
 ```
-Available responses (1-3):
-    3 [ 2.1 min ago]: Here's the updated function with error handling...
-    2 [15.3 min ago]: I'll help you debug this issue. First, let's check...
-    1 [ 1.2 hrs ago]: To implement this feature, we need to modify...
+Responses (1-3, showing 3):
+    3 [  2m ago]: Here's the updated function with error handling...
+    2 [ 15m ago]: I'll help you debug this issue. First, let's check...
+    1 [  1h ago]: To implement this feature, we need to modify...
 ```
 
 **Search for specific content:**
 
 ```
-/copy-response find "git commit"
+-copy -f git commit
 ```
 
 ```
 Searching for "git commit":
-    2 [15.3 min ago]: I'll help you debug this issue. First, let's check...
-    5 [ 2.1 hrs ago]: You can create a git commit using the following...
-Found 2 matching responses
+    2 [ 15m ago]: I'll help you debug this issue. First, let's check...
+    5 [  2h ago]: You can create a git commit using the following...
+Found 2 matches
 ```
 
 ## How It Works
 
 The script:
 
-1. **Intercepts** `/copy-response` commands before Claude processes them
+1. **Intercepts** `-copy` commands before Claude processes them
 2. **Parses** the conversation transcript to extract Claude's responses
 3. **Groups** multi-part responses by request ID for complete responses
 4. **Copies** the selected response to your system clipboard
@@ -131,7 +133,7 @@ The script:
 
 **Hook not triggering?**
 
-- Do not create a custom slash command named `/copy-response` - this will prevent the hook from triggering
+- Avoid renaming your `COMMAND_NAME` with a `/` prefix. This may result in `unknown slash command {YOUR_COMMAND_NAME}`
 
 ## Limitations
 
