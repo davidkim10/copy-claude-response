@@ -1,4 +1,4 @@
-# Claude Code Response Clipboard
+# Clipboard for Claude Code
 
 A Claude Code hook that adds a `-copy` command to quickly copy Claude's responses to your clipboard. 
 
